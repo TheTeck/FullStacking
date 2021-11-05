@@ -1,8 +1,7 @@
 let express = require("express");
 let router = express.Router();
+let testAPICtrl = require("../controllers/testAPI");
 
-router.get("/", function(req, res, next) {
-    res.send(process.env.SECRET_MESSAGE);
-});
+router.get("/", testAPICtrl.show);
 
 module.exports = router;
