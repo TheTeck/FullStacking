@@ -1,14 +1,19 @@
 const request = require("request");
 
+const apiKey = process.env.WEATHER_KEY;
+
 module.exports = {
     show
 }
 
-async function show (req, res) {
+function show (req, res) {
+    let location = "San Francisco";
     request(
-        "https://api.coindesk.com/v1/bpi/currentprice.json",
+        `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&units=imperial`,
         function(err, response, body) {
+            console.error(">>>> ", err)
             let data = JSON.parse(body);
+            console.log(data)
             res.send(data);
         }
     );

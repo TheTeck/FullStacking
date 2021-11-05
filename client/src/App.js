@@ -10,7 +10,7 @@ function App() {
   function callAPI () {
       fetch("http://localhost:9000/testAPI")
       .then(res => res.json())
-      .then(res => setApiRes('$' + res.bpi.USD.rate))
+      .then(res => setApiRes(res.name + ', ' + res.sys.country + '  ' + res.main.temp + "\u00B0"))
       .catch(err => err);
   }
 
