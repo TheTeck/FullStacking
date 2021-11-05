@@ -9,13 +9,16 @@ function App() {
   const [sunrise, setSunrise] = useState('Sunrise: unknown');
   const [sunset, setSunset] = useState('Sunset: unknown');
 
+  const localOffset = new Date().getTimezoneOffset();
+  console.log(localOffset)
+
   function callAPI () {
       fetch("http://localhost:9000/testAPI")
       .then(res => res.json())
       .then(res => {
-        setApiRes(res.name + ', ' + res.sys.country + '  ' + res.main.temp + "\u00B0");
-        setSunrise('Sunrise: ' + new Date(res.sys.sunrise * 1000).toLocaleString());
-        setSunset('Sunset: ' + new Date(res.sys.sunset * 1000).toLocaleString());
+        setApiRes(res.current.temp + "\u00B0");
+        setSunrise('Sunrise: ' + new Date((res.current.sunrise + res.timezone_offset + localOffset * 60) * 1000).toLocaleString());
+        setSunset('Sunset: ' + new Date((res.current.sunset + res.timezone_offset + localOffset * 60) * 1000).toLocaleString());
       })
       .catch(err => err);
   }
